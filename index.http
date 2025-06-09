@@ -1,0 +1,63 @@
+GET http://localhost:3000/api/testing
+
+###
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+    "email": "jowesemail9@gmail.com",
+    "password": "admin",
+    "confirmPassword": "admin",
+    "verifCode": "1791"
+}
+
+###
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin"
+}
+
+###
+GET http://localhost:3000/api/token
+
+###
+DELETE http://localhost:3000/api/logout
+
+###
+POST http://localhost:3000/api/otp
+Content-Type: application/json
+
+{
+    "email": "adamwirda272@gmail.com"
+}
+
+###
+GET http://localhost:3000/api/notes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzYjM4NGNjLWMzY2ItNDNmYS1hYTczLTFkOWY2ZWU3MzZkMCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzQ4NDg4MDYzLCJleHAiOjE3NDg0ODgxMjN9.Lo9rq8tEmq8ArOdfcKeMHRJsuecdvcZLAdzve9LAoTY
+
+### create notes
+POST http://localhost:3000/api/notes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzYjM4NGNjLWMzY2ItNDNmYS1hYTczLTFkOWY2ZWU3MzZkMCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzQ4NDc4NjU3LCJleHAiOjE3NDg0Nzg3MTd9.Ez6MoolL_tXy6fn9PSqs2zdTX7sMg8O9MPur5hy4k2c
+
+###
+POST http://localhost:3000/api/testing
+Content-Type: application/json
+
+{
+    "email": "drrac002cute@gmail.com"
+}
+
+### reqOTP
+POST http://localhost:3000/api/otp
+Content-Type: application/json
+
+{
+    "email": ""
+}
+
+###get notes by id
+GET http://localhost:3000/api/notes/56e56687-a656-4605-b0da-bef37df076ad
+Authorization: Bearer 
