@@ -7,11 +7,5 @@ export default defineNuxtConfig({
 	modules: ['@nuxt/eslint', '@pinia/nuxt'],
 	vite: {
 		plugins: [tailwindcss()]
-	},
-	nitro: {
-		externals: {
-			external: ['mysql2']  // <-- ini wajib!
-		},
-		preset: 'node'
 	}
 })
