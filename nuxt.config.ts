@@ -9,6 +9,8 @@ export default defineNuxtConfig({
 		plugins: [tailwindcss()]
 	},
 	nitro: {
-		moduleSideEffects: ['mysql2']
+		externals: {
+			external: ['mysql2']  // <-- ini wajib!
+		}
 	}
 })
