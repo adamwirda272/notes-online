@@ -6,6 +6,8 @@ import Otps from "../models/otps"
 export default defineEventHandler(async (event) => {
     if (event.method === 'GET') {
         try {
+            await Users.sync()
+            await Notes.sync()
             await Otps.sync()
             return { msg: 'ok' }
         } catch (error) {
