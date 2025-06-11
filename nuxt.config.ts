@@ -7,5 +7,8 @@ export default defineNuxtConfig({
 	modules: ['@nuxt/eslint', '@pinia/nuxt'],
 	vite: {
 		plugins: [tailwindcss()]
+	},
+	nitro: {
+		preset: 'vercel'
 	}
 })
