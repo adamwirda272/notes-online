@@ -6,9 +6,11 @@ export default defineEventHandler(async (event) => {
     const userId = event.context.user.id
     const id = getRouterParam(event, 'id')
 
+    const { content } = await readBody(event)
+
     try {
-        const notes = await Notes.findOne({ where: { id: id, userId: userId }, raw: true })
-        return { status: 200, notes }
+        await Notes.update({ content: content }, { where: { id: id, userId: userId } })
+        return { status: 200 }
     } catch (error) {
         return { status: 500, msg: 'internal server error' }
     }

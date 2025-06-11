@@ -7,8 +7,8 @@ export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
 
     try {
-        const notes = await Notes.findOne({ where: { id: id, userId: userId }, raw: true })
-        return { status: 200, notes }
+        await Notes.destroy({ where: { id: id, userId: userId } })
+        return { status: 200 }
     } catch (error) {
         return { status: 500, msg: 'internal server error' }
     }
