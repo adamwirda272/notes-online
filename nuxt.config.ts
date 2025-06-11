@@ -11,6 +11,7 @@ export default defineNuxtConfig({
 	nitro: {
 		externals: {
 			external: ['mysql2']  // <-- ini wajib!
-		}
+		},
+		preset: 'node'
 	}
 })
