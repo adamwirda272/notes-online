@@ -1,9 +1,11 @@
 import { Sequelize } from "sequelize";
 import mysql from 'mysql2'
 
-const db = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, process.env.DB_PW!, {
-    host: process.env.DB_HOST!,
-    port: parseInt(process.env.DB_PORT!),
+const config = useRuntimeConfig()
+
+const db = new Sequelize(config.DB_NAME!, config.DB_USER!, config.DB_PW!, {
+    host: config.DB_HOST!,
+    port: parseInt(config.DB_PORT!),
     dialect: 'mysql',
     dialectModule: mysql
 })

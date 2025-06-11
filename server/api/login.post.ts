@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     const refreshToken = JWT.sign({
         id: existingUser!.id,
         email: existingUser!.email,
-    }, process.env.REFRESH_TOKEN!, {
+    }, useRuntimeConfig().REFRESH_TOKEN!, {
         expiresIn: '7d'
     })
 
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
     setCookie(event, 'refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.APP_ENV === 'prod',
+        secure: useRuntimeConfig().APP_ENV === 'prod',
         sameSite: 'strict',
         maxAge: 1000 * 60 * 60 * 24 * 7
     })

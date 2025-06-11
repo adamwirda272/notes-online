@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         const accessToken = JWT.sign({
             id: existingUser.id,
             email: existingUser.email
-        }, process.env.ACCESS_TOKEN!, {
+        }, useRuntimeConfig().ACCESS_TOKEN!, {
             expiresIn: '1m'
         })
 

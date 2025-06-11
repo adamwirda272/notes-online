@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     }
 
     try {
-        const decoded = JWT.verify(token, process.env.ACCESS_TOKEN!)
+        const decoded = JWT.verify(token, useRuntimeConfig().ACCESS_TOKEN!)
 
         if (!decoded) {
             throw createError({ statusCode: 401, message: 'Unauthorized' })
