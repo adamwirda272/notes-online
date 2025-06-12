@@ -1,5 +1,5 @@
 <template>
-    <RegisterForm />
+    <PasswordChangeForm/>
 </template>
 
 <script setup lang="ts">

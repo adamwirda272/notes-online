@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full h-full p-5 flex flex-col"
-        :class="[context.isNavActive ? (context.isMobile ? 'opacity-0' : '') : '']">
+        :class="[app.navActive ? (app.mobile ? 'opacity-0' : '') : '']">
 
         <!--Toolbar-->
         <div class="w-full flex flex-row flex-nowrap gap-2">
@@ -46,7 +46,7 @@
 
             <!--Text editor-->
             <div class="h-auto flex flex-nowrap p-2 gap-1 rounded-md mb-5 border border-[var(--border-color)] overflow-y-hidden overflow-x-auto"
-                :class="[context.isMobile ? 'flex-1' : '']">
+                :class="[app.mobile ? 'flex-1' : '']">
                 <button @click="editor?.chain().focus().toggleHeading({ level: 1 }).run()" :class="[
                     'text-2xl',
                     'p-1',
@@ -133,7 +133,7 @@
             </div>
 
             <!--Empty-->
-            <div v-if="!context.isMobile" class="flex-1"></div>
+            <div v-if="!app.mobile" class="flex-1"></div>
 
             <!--Options-->
             <button v-on:click="noteContextMenuActive = !noteContextMenuActive"
@@ -147,11 +147,11 @@
             </button>
             <ContextMenu :is-active="noteContextMenuActive" v-on:close="noteContextMenuActive = !noteContextMenuActive"
                 :class="['absolute right-7 top-17 origin-top-right flex flex-col', noteContextMenuActive ? 'scale-100 opacity-100' : 'scale-0 opacity-0']">
-                <button v-on:click="context.updateNotes(id, context.notesCache[index].content)"
+                <button v-on:click="notes.updateById(id, notes.cache[index].content)"
                     class="border-b border-[var(--border-color)] p-2 cursor-pointer hover:bg-[var(--border-color)] text-nowrap pl-5 pr-5">Save
                     notes
                 </button>
-                <button v-on:click="context.deleteNote(id)"
+                <button v-on:click="notes.deleteById(id)"
                     class="border-b border-[var(--border-color)] p-2 cursor-pointer hover:bg-[var(--border-color)] text-nowrap pl-5 pr-5">Delete
                     notes
                 </button>
@@ -171,17 +171,16 @@
 <script setup lang="ts">
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import { appState } from '#imports';
+
+const app = useAppStore()
+const notes = useNotes()
 
 const props = defineProps<{
     id: string
 }>()
 
-const context = appState()
-
-const index = ref<number>(context.notesCache.findIndex(n => n.id === props.id))
-
-const status = ref(`Updated at: ${new Date(context.notesCache[index.value].updatedAt).toLocaleString()}`)
+const index = ref<number>(notes.cache.findIndex(n => n.id === props.id))
+const status = ref(`Updated at: ${new Date(notes.cache[index.value].updatedAt).toLocaleString()}`)
 
 let typingTimeout: ReturnType<typeof setTimeout> | null = null
 
@@ -210,17 +209,17 @@ const editor = useEditor({
             }
         }),
     ],
-    content: context.notesCache[index.value].content,
+    content: notes.cache[index.value].content,
     onUpdate({ editor }) {
-        context.notesCache[index.value].content = editor.getHTML()
+        notes.cache[index.value].content = editor.getHTML()
 
         status.value = 'Edited'
 
         if (typingTimeout) clearTimeout(typingTimeout)
         typingTimeout = setTimeout(async () => {
             status.value = 'Saving...'
-            await context.updateNotes(props.id, context.notesCache[index.value].content)
-            status.value = `Updated at: ${new Date(context.notesCache[index.value].updatedAt).toLocaleString()}`
+            await notes.updateById(props.id, notes.cache[index.value].content)
+            status.value = `Updated at: ${new Date(notes.cache[index.value].updatedAt).toLocaleString()}`
         }, 2000)
     },
     editorProps: {

@@ -1,8 +1,9 @@
-<script setup lang="ts">
-    definePageMeta({
-        layout: 'empty'
-    })
-</script>
 <template>
-    <Login/>
+    <LoginForm />
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+    layout: 'empty'
+})
+</script>
